@@ -1,0 +1,124 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- SCSS Variables ---------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------- */
+/* Typography --------------------------------------------- */
+
+/* Font-Families */
+$fontFamily-title: var(--ff-title);
+$fontFamily-body: var(--ff-body);
+$fontFamily-extra: var(--ff-extra);
+$fontFamily-code: var(--ff-code);
+
+/* Font-Weights */
+$fontWeight-light: 300;
+$fontWeight-normal: 400;
+$fontWeight-bold: 700;
+$fontWeight-black: 900;
+$fontWeight-base: $fontWeight-normal;
+
+/* Font-Sizes */
+$fontSize-2xs: var(--fs-2xs);
+$fontSize-xs: var(--fs-xs);
+$fontSize-sm: var(--fs-sm);
+$fontSize-md: var(--fs-md);
+$fontSize-lg: var(--fs-lg);
+$fontSize-xl: var(--fs-xl);
+$fontSize-2xl: var(--fs-2xl);
+$fontSize-3xl: var(--fs-3xl);
+$fontSize-base: $fontSize-sm;
+
+/* -------------------------------------------------------- */
+/* Colors ------------------------------------------------- */
+
+/* Ready Colors */
+$color-primary: #00bcd4;
+$color-primary: #00bcd4;
+
+/* Components Colors */
+
+/* -------------------------------------------------------- */
+/* Box-Shadows -------------------------------------------- */
+
+/* Shadows */
+$elevated-1: var(--elevated-1);
+$elevated-2: var(--elevated-2);
+$elevated-3: var(--elevated-3);
+$elevated-4: var(--elevated-4);
+$elevated-5: var(--elevated-5);
+
+/* Glows */
+$glow-primary-sm: var(--glow-prm-sm);
+$glow-primary-lg: var(--glow-prm-lg);
+$glow-secondary-sm: var(--glow-sec-sm);
+$glow-secondary-lg: var(--glow-sec-lg);
+$glow-accent-sm: var(--glow-acc-sm);
+$glow-accent-lg: var(--glow-acc-lg);
+
+/* -------------------------------------------------------- */
+/* Border-Radius ------------------------------------------ */
+
+/* Radius Sizes */
+$radius-sm: var(--radius-sm);
+$radius-md: var(--radius-md);
+$radius-lg: var(--radius-lg);
+$radius-base: #{$radius-md};
+
+/* -------------------------------------------------------- */
+/* Components Dynamic Values ------------------------------ */
+
+$header-height: var(--header-h);
+
+$button-radius: var(--btn-r);
+$button-padding-block: var(--btn-pbl);
+$button-padding-inline: var(--btn-pin);
+
+$tooltip-radius: var(--tip-r);
+$tooltip-width: var(--tip-w);
+$tooltip-delay: var(--tip-d);
+
+/* -------------------------------------------------------- */
+/* General Animations & Transitions ----------------------- */
+
+/* Animations Function */
+$animation-function-ease: var(--a-fn-ease);
+$animation-function-ease-io: var(--a-fn-ease-io);
+$animation-function-spring: var(--a-fn-spring);
+
+/* Animations Durations */
+$animation-speed-0: var(--a-speed-0);
+$animation-speed-1: var(--a-speed-1);
+$animation-speed-2: var(--a-speed-2);
+$animation-speed-3: var(--a-speed-3);
+$animation-speed-base: #{$animation-speed-1};
+
+/* Theme-Change Base Transition */
+$animation-themeChange-transition: var(--a-tc-transition);
+
+/* -------------------------------------------------------- */
+/* Break-Points ------------------------------------------- */
+
+/* Screen-Sizes */
+$screenSize-xs: 360px;
+$screenSize-sm: 576px;
+$screenSize-md: 768px;
+$screenSize-lg: 1024px;
+$screenSize-xl: 1440px;
+$screenSize-2xl: 1920px;
+
+/* -------------------------------------------------------- */
+/* Layers System ------------------------------------------ */
+
+/* Layers `z-index` Values */
+$layer-background: -1;
+$layer-base: auto;
+$layer-0: 0;
+$layer-1: 1;
+$layer-2: 2;
+$layer-3: 3;
+$layer-4: 4;
+$layer-5: 5;
+$layer-foreground: 2147483647;
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

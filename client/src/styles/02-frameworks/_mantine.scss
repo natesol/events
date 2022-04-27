@@ -1,0 +1,39 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Overwriting Mantine Base Styles ----------------------------------------------------------- */
+
+.mantine-ScrollArea-scrollbar {
+    z-index: $layer-foreground;
+}
+
+.mantine-TextInput-input,
+.mantine-PasswordInput-input {
+    &:focus,
+    &:focus-within {
+        border-width: 2px;
+        margin-inline: -1px;
+    }
+}
+
+.mantine-Menu-item {
+    &.active {
+        font-weight: $fontWeight-bold;
+
+        svg {
+            stroke-width: 3;
+        }
+    }
+}
+
+.mantine-Switch-input {
+    cursor: pointer;
+}
+.mantine-Checkbox-root {
+    .mantine-Checkbox-inner,
+    .mantine-Checkbox-label,
+    .mantine-Checkbox-input {
+        cursor: pointer;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

@@ -1,0 +1,47 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Card Slider ------------------------------------------------------------------------------- */
+
+
+.react-horizontal-scrolling-menu--wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+    .react-horizontal-scrolling-menu--scroll-container {
+        padding-inline: 2rem;
+        overflow: scroll hidden;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .arrow {
+        cursor: pointer;
+        user-select: none;
+        width: 2rem;
+        height: 100%;
+        font-size: 2rem;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        position: absolute;
+        z-index: 1;
+        
+        &-left {
+            left: 0;
+        }
+
+        &-right {
+            right: 0;
+        }
+
+        &[disabled] {
+            opacity: 0.5;
+        }
+    }
+}
+
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

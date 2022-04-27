@@ -1,0 +1,98 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Dark Theme Styles ------------------------------------------------------------------------- */
+
+
+:root[data-theme="dark"] {
+
+    /* ---------------------------------------------------- */
+    /* Color-Scheme Base Property ------------------------- */
+
+    color-scheme: dark;
+
+    
+    /* ---------------------------------------------------- */
+    /* Colors In Use -------------------------------------- */
+
+    // --clr-prm-h: 191; --clr-prm-s:  89%; --clr-prm-l: 52%; // primary
+    // --clr-sec-h: 222; --clr-sec-s: 100%; --clr-sec-l: 50%; // secondary
+    // --clr-acc-h: 155; --clr-acc-s:  91%; --clr-acc-l: 39%; // accent
+
+    // --clr-info-bg:     211  60% 24%;
+    // --clr-info-txt:    209 100% 85%;
+    // --clr-error-bg:    307  23% 15%;
+    // --clr-error-txt:   338 100% 82%;
+    // --clr-success-bg:  174  53% 15%;
+    // --clr-success-txt: 155  68% 85%;
+    
+    // --shadow-c: hsl(#{$colorValues-black} / 30%);
+
+    // --title-c: #{$color-gray-1};
+    // --title-h: #{$color-primary-light};
+
+    // --body-bg-c:  #{$color-gray-10};
+    // --body-bg-h:  #{$color-gray-9};
+    // --body-txt-c: #{$color-gray-3};
+    // --body-txt-h: #{$color-primary};
+
+    // --sheet-bg-c:  #{$color-gray-9};
+    // --sheet-bg-h:  #{$color-gray-8};
+    // --sheet-txt-c: #{$color-gray-3};
+    // --sheet-txt-h: #{$color-gray-3};
+    
+    // --tip-bg-c:  #{$color-black};
+    // --tip-txt-c: #{$color-gray-1};
+    
+
+    // /* ---------------------------------------------------- */
+    // /* Specific Adjustments ------------------------------- */
+
+    // img {
+    //     filter: grayscale(0.3);
+
+    //     &:hover {
+    //         filter: grayscale(0);
+    //     }
+    // }
+
+    // .sheet {
+    //     border-color: hsl($colorValues-white / 0.04);
+    // }
+
+    // .btn-basic {
+    //     &:hover {
+    //         color: $color-secondary-light;
+            
+    //         svg {
+    //             stroke: $color-secondary-light;
+    //         }
+    //     }
+    //     &:active {
+    //         border-color: $color-secondary-light;
+    //         box-shadow: inset 0 0 0 1px $color-secondary-light;
+    //     }
+    // }
+    // .btn-outline-current {
+    //     color: $title-txt-color;
+    //     border-color: $title-txt-color;
+        
+    //     &:hover {
+    //         color: $body-bg-color;
+    //         background: $title-txt-color;
+    //     }
+    //     &:active {
+    //         background: $body-txt-color;
+    //     }
+    // }
+    // .btn-filled-current {
+    //     background: $title-txt-color;
+    //     border-color: $title-txt-color;
+        
+    //     &:hover:not(:active) {
+    //         background: $body-txt-color;
+    //     }
+    // }
+}
+
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

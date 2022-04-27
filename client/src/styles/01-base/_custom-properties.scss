@@ -1,0 +1,132 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Global CSS Custom Properties -------------------------------------------------------------- */
+
+:root {
+    /* ---------------------------------------------------- */
+    /* Spacings ------------------------------------------- */
+    --size-2xs: 0.25rem;
+    --size-xs: 0.5rem;
+    --size-sm: 0.875rem;
+    --size-md: 1rem;
+    --size-lg: 1.25rem;
+    --size-xl: 1.5rem;
+    --size-2xl: 2rem;
+    --size-3xl: 4rem;
+
+    --size-fluid-sm: clamp(0.5rem, 1vw, 1rem);
+    --size-fluid-md: clamp(1rem, 2vw, 1.5rem);
+    --size-fluid-lg: clamp(1.5rem, 3vw, 2rem);
+    --size-fluid-xl: clamp(2rem, 4vw, 3rem);
+    --size-fluid-2xl: clamp(4rem, 5vw, 5.5rem);
+
+    /* ---------------------------------------------------- */
+    /* Typography ----------------------------------------- */
+
+    --ff-sans: system-ui, -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Ubuntu',
+        'Bitstream Vera Sans', 'Liberation Sans', Arial, sans-serif;
+    --ff-serif: ui-serif, 'Constantia', 'Lucida Bright', 'Lucidabright', 'Lucida Serif', 'Lucida',
+        'Bitstream Vera Serif', 'Liberation Serif', Georgia, serif;
+    --ff-mono: ui-monospace, 'Consolas', 'Andale Mono', 'Monaco', 'Lucida Console', 'Bitstream Vera Sans Mono',
+        'Liberation Mono', 'Courier New', Courier, monospace;
+
+    --ff-title: 'Nunito Sans', var(--ff-sans);
+    --ff-body: 'Poppins', var(--ff-sans);
+    --ff-extra: 'Poppins', var(--ff-sans);
+    --ff-code: 'Source Code Pro', var(--ff-mono);
+
+    --fs-xs: 0.8rem;
+    --fs-sm: 0.875rem;
+    --fs-md: 1rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 1.75rem;
+    --fs-2xl: 2.55rem;
+    --fs-3xl: 3.05rem;
+    --fs-4xl: 5.15rem;
+
+    --fs-fluid-sm: clamp(0.8rem, 1.5vw, 1rem);
+    --fs-fluid-md: clamp(1rem, 2vw, 1.5rem);
+    --fs-fluid-lg: clamp(1.5rem, 3vw, 2.5rem);
+    --fs-fluid-xl: clamp(2.25rem, 4vw, 3.5rem);
+    --fs-fluid-2xl: clamp(3.35rem, 5vw, 6rem);
+
+    /* ---------------------------------------------------- */
+    /* Colors --------------------------------------------- */
+
+    --clr-white: #ffffff;
+    --clr-black: #000000;
+
+    --clr-gray-0: #fbfdff;
+    --clr-gray-1: #eceff5;
+    --clr-gray-2: #d3d9e4;
+    --clr-gray-3: #c4ccd8;
+    --clr-gray-4: #939baa;
+    --clr-gray-5: #5f6879;
+    --clr-gray-6: #434f5f;
+    --clr-gray-7: #333e50;
+    --clr-gray-8: #1f2635;
+    --clr-gray-9: #111829;
+
+    --clr-prm: var(--clr-prm-h) var(--clr-prm-s) var(--clr-prm-l); // aqua:    #18caf2
+    --clr-prm-light: var(--clr-prm-h) calc(var(--clr-prm-s) - 10%) calc(var(--clr-prm-l) + 10%);
+    --clr-prm-dark: var(--clr-prm-h) calc(var(--clr-prm-s) + 50%) calc(var(--clr-prm-l) - 10%);
+
+    --clr-sec: var(--clr-sec-h) var(--clr-sec-s) var(--clr-sec-l); // blue:    #004eff
+    --clr-sec-light: var(--clr-sec-h) calc(var(--clr-sec-s) - 10%) calc(var(--clr-sec-l) + 10%);
+    --clr-sec-dark: var(--clr-sec-h) calc(var(--clr-sec-s) + 50%) calc(var(--clr-sec-l) - 10%);
+
+    --clr-acc: var(--clr-acc-h) var(--clr-acc-s) var(--clr-acc-l); // emerald: #09be73
+    --clr-acc-light: var(--clr-acc-h) calc(var(--clr-acc-s) - 10%) calc(var(--clr-acc-l) + 10%);
+    --clr-acc-dark: var(--clr-acc-h) calc(var(--clr-acc-s) + 50%) calc(var(--clr-acc-l) - 10%);
+
+    /* ---------------------------------------------------- */
+    /* Box-Shadows ---------------------------------------- */
+
+    // xs: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)',
+    // sm: '0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 10px 15px -5px, rgba(0, 0, 0, 0.04) 0px 7px 7px -5px',
+    // md: '0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px',
+    // lg: '0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 28px 23px -7px, rgba(0, 0, 0, 0.04) 0px 12px 12px -7px',
+    // xl: '0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 36px 28px -7px, rgba(0, 0, 0, 0.04) 0px 17px 17px -7px',
+
+    --elevated-1: 0 2px 3px -1px var(--shadow-c), 0 1px 9px -4px var(--shadow-c);
+    --elevated-2: 0 3px 6px -2px var(--shadow-c), 0 2px 4px -2px var(--shadow-c);
+    --elevated-3: 0 7px 15px -3px var(--shadow-c), 0 4px 6px -4px var(--shadow-c);
+    --elevated-4: 0 13px 25px -8px var(--shadow-c), 0 8px 10px -6px var(--shadow-c);
+    --elevated-5: 0 4px 10px -5px var(--shadow-c), 0 25px 50px -12px var(--shadow-c);
+
+    --glow-prm-sm: 0 0px 12px -6px hsl(var(--clr-prm)), 0 3px 12px -11px hsl(var(--clr-prm));
+    --glow-prm-lg: 0 6px 14px -7px hsl(var(--clr-prm)), 0 6px 20px -9px hsl(var(--clr-prm));
+    --glow-sec-sm: 0 0px 12px -6px hsl(var(--clr-sec)), 0 3px 12px -11px hsl(var(--clr-sec));
+    --glow-sec-lg: 0 6px 14px -7px hsl(var(--clr-sec)), 0 6px 20px -9px hsl(var(--clr-sec));
+    --glow-acc-sm: 0 0px 12px -6px hsl(var(--clr-acc)), 0 3px 12px -11px hsl(var(--clr-acc));
+    --glow-acc-lg: 0 6px 14px -7px hsl(var(--clr-acc)), 0 6px 20px -9px hsl(var(--clr-acc));
+
+    /* ---------------------------------------------------- */
+    /* Border Radius -------------------------------------- */
+
+    --radius-xs: 0.125rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 2rem;
+
+    /* ---------------------------------------------------- */
+    /* Components Dynamic Values -------------------------- */
+
+    --header-h: 4rem;
+
+    /* ---------------------------------------------------- */
+    /* General Animations & Transitions ------------------- */
+
+    --a-fn-ease: cubic-bezier(0, 0.1, 0.7, 0.9);
+    --a-fn-ease-io: cubic-bezier(0.5, 0, 0.3, 1);
+    --a-fn-quadric: cubic-bezier(0.5, 0, 0.3, 1);
+    --a-fn-spring: cubic-bezier(0.9, -2.4, 0.1, 2.4);
+
+    --a-speed-0: 80ms;
+    --a-speed-1: 180ms;
+    --a-speed-2: 300ms;
+    --a-speed-3: 410ms;
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
