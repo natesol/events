@@ -2,23 +2,40 @@
 /* ---- SCSS Variables ---------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------- */
+/* Spacings ----------------------------------------------- */
+
+$size-2xs: var(--size-2xs);
+$size-xs: var(--size-xs);
+$size-sm: var(--size-sm);
+$size-md: var(--size-md);
+$size-lg: var(--size-lg);
+$size-xl: var(--size-xl);
+$size-2xl: var(--size-2xl);
+$size-3xl: var(--size-3xl);
+$size-fluid-sm: var(--size-fluid-sm);
+$size-fluid-md: var(--size-fluid-md);
+$size-fluid-lg: var(--size-fluid-lg);
+$size-fluid-xl: var(--size-fluid-xl);
+$size-fluid-2xl: var(--size-fluid-2xl);
+
+/* -------------------------------------------------------- */
+/* Break-Points ------------------------------------------- */
+
+$screenSize-xs: var(--screen-xs);
+$screenSize-sm: var(--screen-sm);
+$screenSize-md: var(--screen-md);
+$screenSize-lg: var(--screen-lg);
+$screenSize-xl: var(--screen-xl);
+$screenSize-2xl: var(--screen-2xl);
+
+/* -------------------------------------------------------- */
 /* Typography --------------------------------------------- */
 
-/* Font-Families */
 $fontFamily-title: var(--ff-title);
 $fontFamily-body: var(--ff-body);
 $fontFamily-extra: var(--ff-extra);
 $fontFamily-code: var(--ff-code);
 
-/* Font-Weights */
-$fontWeight-light: 300;
-$fontWeight-normal: 400;
-$fontWeight-bold: 700;
-$fontWeight-black: 900;
-$fontWeight-base: $fontWeight-normal;
-
-/* Font-Sizes */
-$fontSize-2xs: var(--fs-2xs);
 $fontSize-xs: var(--fs-xs);
 $fontSize-sm: var(--fs-sm);
 $fontSize-md: var(--fs-md);
@@ -26,16 +43,53 @@ $fontSize-lg: var(--fs-lg);
 $fontSize-xl: var(--fs-xl);
 $fontSize-2xl: var(--fs-2xl);
 $fontSize-3xl: var(--fs-3xl);
-$fontSize-base: $fontSize-sm;
+$fontSize-4xl: var(--fs-4xl);
+$fontSize-fluid-sm: var(--fs-fluid-sm);
+$fontSize-fluid-md: var(--fs-fluid-md);
+$fontSize-fluid-lg: var(--fs-fluid-lg);
+$fontSize-fluid-xl: var(--fs-fluid-xl);
+$fontSize-fluid-2xl: var(--fs-fluid-2xl);
+$fontSize-default: var(--fs-default);
+
+$fontWeight-light: var(--fw-light);
+$fontWeight-normal: var(--fw-normal);
+$fontWeight-bold: var(--fw-bold);
+$fontWeight-black: var(--fw-black);
+
+/* -------------------------------------------------------- */
+/* Border-Radius ------------------------------------------ */
+
+$radius-xs: var(--radius-xs);
+$radius-sm: var(--radius-sm);
+$radius-md: var(--radius-md);
+$radius-lg: var(--radius-lg);
+$radius-xl: var(--radius-xl);
+$radius-round: var(--radius-round);
+$radius-ellipse: var(--radius-ellipse);
+$radius-default: var(--radius-default);
+
+/* -------------------------------------------------------- */
+/* Animations & Transitions ------------------------------- */
+
+$animation-function-ease: var(--a-fn-ease);
+$animation-function-ease-io: var(--a-fn-ease-io);
+$animation-function-spring: var(--a-fn-spring);
+$animation-function-back: var(--a-fn-back);
+$animation-function-default: var(--a-fn-default);
+$animation-speed-0: var(--a-speed-0);
+$animation-speed-1: var(--a-speed-1);
+$animation-speed-2: var(--a-speed-2);
+$animation-speed-3: var(--a-speed-3);
+$animation-speed-default: var(--a-speed-default);
 
 /* -------------------------------------------------------- */
 /* Colors ------------------------------------------------- */
 
-/* Ready Colors */
 $color-primary: #00bcd4;
 $color-primary: #00bcd4;
 
 /* Components Colors */
+$body-bg-color: var(--body-bg);
 
 /* -------------------------------------------------------- */
 /* Box-Shadows -------------------------------------------- */
@@ -56,15 +110,6 @@ $glow-accent-sm: var(--glow-acc-sm);
 $glow-accent-lg: var(--glow-acc-lg);
 
 /* -------------------------------------------------------- */
-/* Border-Radius ------------------------------------------ */
-
-/* Radius Sizes */
-$radius-sm: var(--radius-sm);
-$radius-md: var(--radius-md);
-$radius-lg: var(--radius-lg);
-$radius-base: #{$radius-md};
-
-/* -------------------------------------------------------- */
 /* Components Dynamic Values ------------------------------ */
 
 $header-height: var(--header-h);
@@ -76,35 +121,6 @@ $button-padding-inline: var(--btn-pin);
 $tooltip-radius: var(--tip-r);
 $tooltip-width: var(--tip-w);
 $tooltip-delay: var(--tip-d);
-
-/* -------------------------------------------------------- */
-/* General Animations & Transitions ----------------------- */
-
-/* Animations Function */
-$animation-function-ease: var(--a-fn-ease);
-$animation-function-ease-io: var(--a-fn-ease-io);
-$animation-function-spring: var(--a-fn-spring);
-
-/* Animations Durations */
-$animation-speed-0: var(--a-speed-0);
-$animation-speed-1: var(--a-speed-1);
-$animation-speed-2: var(--a-speed-2);
-$animation-speed-3: var(--a-speed-3);
-$animation-speed-base: #{$animation-speed-1};
-
-/* Theme-Change Base Transition */
-$animation-themeChange-transition: var(--a-tc-transition);
-
-/* -------------------------------------------------------- */
-/* Break-Points ------------------------------------------- */
-
-/* Screen-Sizes */
-$screenSize-xs: 360px;
-$screenSize-sm: 576px;
-$screenSize-md: 768px;
-$screenSize-lg: 1024px;
-$screenSize-xl: 1440px;
-$screenSize-2xl: 1920px;
 
 /* -------------------------------------------------------- */
 /* Layers System ------------------------------------------ */

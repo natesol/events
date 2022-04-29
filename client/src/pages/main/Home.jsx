@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Header, CardSlider, ToDoGroup } from '../../components';
+import { EventCard, ToDoGroup } from '../../components';
+import { Anchor, ScrollArea, Box } from '@mantine/core';
 
-export function Home() {
+export const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ export function Home() {
         <>
             <section>
                 <h4 className='fs-6 text-muted mb-0'>welcome back,</h4>
-                <h3 className='fs-1 text-capitalize fw-bold'>{user?.name}</h3>
+                <h3 className='fs-1 text-capitalize fw-bold'>{user?.firstName + ' ' + user?.lastName}</h3>
             </section>
 
             <br />
@@ -33,9 +34,22 @@ export function Home() {
                     style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                 >
                     <h4 className='mb-0 fs-4 fw-bold'>Upcoming Events</h4>
-                    <Link to='/events'>View all</Link>
+                    <Anchor component={Link} to='/events'>
+                        View all
+                    </Anchor>
                 </div>
-                <CardSlider />
+                <ScrollArea offsetScrollbars>
+                    <Box
+                        sx={(theme) => ({
+                            display: 'flex',
+                            gap: theme.spacing['2xl'],
+                        })}
+                    >
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+                            <EventCard key={i} num={i} />
+                        ))}
+                    </Box>
+                </ScrollArea>
             </section>
 
             <br />
@@ -45,7 +59,9 @@ export function Home() {
             <section>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <h4 className='fs-4 fw-bold'>Ongoing Tasks</h4>
-                    <Link to='/tasks'>View all</Link>
+                    <Anchor component={Link} to='/tasks'>
+                        View all
+                    </Anchor>
                 </div>
                 <ToDoGroup />
             </section>
@@ -66,6 +82,6 @@ export function Home() {
             <p>asflafalfal alfalfla la</p>
         </>
     );
-}
+};
 
 export default Home;

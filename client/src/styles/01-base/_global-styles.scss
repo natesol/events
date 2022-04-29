@@ -1,8 +1,6 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ---- Global Styles ----------------------------------------------------------------------------- */
 
-@use '../00-config' as *;
-
 /* -------------------------------------------------------- */
 /* Pseudo Classes & Elements ------------------------------ */
 
@@ -52,7 +50,7 @@ body {
     font-weight: $fontWeight-normal;
     line-height: 1.5;
 
-    // background-color: $body-bg-color;
+    background-color: $body-bg-color;
     // color: $body-txt-color;
 }
 

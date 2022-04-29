@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-export function Profile() {
+export const Profile = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -21,6 +21,6 @@ export function Profile() {
             </section>
         </>
     );
-}
+};
 
 export default Profile;

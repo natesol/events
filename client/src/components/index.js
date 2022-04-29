@@ -1,24 +1,23 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ---- React Components - Barrel File ------------------------------------------------------------ */
 
-export * from './layouts/Body';
-export * from './layouts/Header';
-export * from './layouts/Section';
+export * from './00-templates/AuthTemplate';
+export * from './00-templates/MainTemplate';
 
-export * from './modules/KebabMenu';
-export * from './modules/ThemeChangeButton';
-export * from './modules/BackButton';
+export * from './01-layouts/Body';
+export * from './01-layouts/Header';
+export * from './01-layouts/Section';
 
-export * from './modules/Tooltip';
-export * from './modules/Loader';
-export * from './modules/Logo';
-export * from './modules/SocialButtons';
+export * from './02-modules/BackButton';
 
-export * from './modules/CardSlider';
-export * from './modules/UpcomingEvents';
-export * from './modules/ToDoGroup';
-export * from './modules/GoalItem';
-export * from './modules/GoalForm';
+export * from './02-modules/Tooltip';
+export * from './02-modules/Loader';
+export * from './02-modules/Logo';
+export * from './02-modules/SocialButtons';
+
+export * from './02-modules/EventCard';
+export * from './02-modules/UpcomingEvents';
+export * from './02-modules/ToDoGroup';
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

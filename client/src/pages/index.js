@@ -2,20 +2,22 @@
 /* ---- React Page Components - Barrel File ------------------------------------------------------- */
 
 // Authentication pages
-export * from './authentication/AuthShell';
-export * from './authentication/Register';
-export * from './authentication/Login';
-export * from './authentication/ResetPassword';
+export * from './auth/Register';
+export * from './auth/Login';
+export * from './auth/ResetPassword';
 
 // Main app pages
-export * from './main/MainShell';
 export * from './main/Home';
 export * from './main/Profile';
 export * from './main/Settings';
-export * from './main/CreateEvent';
-export * from './main/Events';
-export * from './main/Event';
-export * from './main/Dashboard';
+export * from './main/Friends';
+export * from './main/Notifications';
+
+// Events pages
+export * from './events/Events';
+export * from './events/EventsArchive';
+export * from './events/CreateEvent';
+export * from './events/SingleEvent';
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

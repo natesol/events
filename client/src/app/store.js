@@ -1,10 +1,19 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Redux Store Configuration - App State Management ------------------------------------------ */
+
 import { configureStore } from '@reduxjs/toolkit';
-import { authReducer, userPreferencesReducer, goalReducer } from '../features';
+
+import authReducer from '../features/auth/authSlice';
+import goalReducer from '../features/auth/authSlice';
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
-        userPreferences: userPreferencesReducer,
+        // userPref: userPrefReducer,
+        // events: eventsReducer,
         goals: goalReducer,
     },
 });
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

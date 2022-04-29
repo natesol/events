@@ -1,0 +1,28 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Modules Elements Styles ------------------------------------------------------------------- */
+
+.Logo {
+    font-family: $fontFamily-extra;
+    width: fit-content;
+    text-transform: uppercase;
+    font-weight: 900;
+    text-decoration: none;
+
+    &:not(.variant) {
+        // background: linear-gradient(90deg, rgb(24, 202, 242) 0%, rgb(0, 76, 255) 100%);
+        background-clip: text;
+        color: transparent;
+    }
+
+    &.variant {
+        &.white {
+            color: #fff;
+        }
+        &.black {
+            color: #000;
+        }
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

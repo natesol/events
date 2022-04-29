@@ -1,0 +1,40 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Header ------------------------------------------------------------------------------------ */
+
+.show-Header .Header {
+    transform: translateY(0);
+}
+
+.Header {
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    height: $header-height;
+    width: 100%;
+    transform: translateY(-150%);
+    transition: transform 0.2s cubic-bezier(0.65, 0.05, 0.36, 1);
+
+    .navbar {
+        height: 100%;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .dropdown-toggle {
+        padding: 0;
+
+        &::after {
+            content: none;
+        }
+    }
+
+    .dropdown-menu {
+        box-shadow: $elevated-1;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

@@ -46,7 +46,20 @@ export const logout = createAsyncThunk('auth/logout', async () => {
     await authService.logout();
 });
 
-// TODO: Add delete user.
+// Update user.
+export const update = createAsyncThunk('auth/update', async (newData, thunkAPI) => {
+    try {
+        const user = thunkAPI.getState().auth.user;
+        return await authService.updateUser(newData, user._id, user.token);
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
 export const remove = () => {};
 
 // User authentication slice.
@@ -93,6 +106,18 @@ export const authSlice = createSlice({
             })
             .addCase(logout.fulfilled, (state) => {
                 state.user = null;
+            })
+            .addCase(update.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(update.fulfilled, (state) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+            })
+            .addCase(update.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
             });
     },
 });
@@ -101,7 +126,7 @@ const { reset } = authSlice.actions;
 
 const authReducer = authSlice.reducer;
 
-export { authReducer, reset as authReset };
+export { authReducer, reset as authReset, update as updateUser };
 export default authReducer;
 
 /* ------------------------------------------------------------------------------------------------ */

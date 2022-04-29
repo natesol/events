@@ -7,9 +7,9 @@ const User = require('../models/userModel');
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
         res.status(400);
         throw new Error('Please add all fields');
     }
@@ -28,7 +28,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Create user
     const user = await User.create({
-        name,
+        firstName,
+        lastName,
         email,
         password: hashedPassword,
     });
@@ -36,9 +37,10 @@ const registerUser = asyncHandler(async (req, res) => {
     if (user) {
         res.status(201).json({
             _id: user.id,
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
-            token: generateToken(user._id),
+            token: generateToken(user._id, true),
         });
     } else {
         res.status(400);
@@ -50,7 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, remember } = req.body;
 
     // Check for user email
     const user = await User.findOne({ email });
@@ -58,9 +60,10 @@ const loginUser = asyncHandler(async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({
             _id: user.id,
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
-            token: generateToken(user._id),
+            token: generateToken(user._id, remember),
         });
     } else {
         res.status(400);
@@ -75,10 +78,45 @@ const getMe = asyncHandler(async (req, res) => {
     res.status(200).json(req.user);
 });
 
+// @desc    Update User
+// @route   PUT /api/users/:id
+// @access  Private
+const updateUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    const { password } = req.body;
+
+    // Check for user
+    if (!req.user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+
+    // Make sure the logged in user matches the requested user
+    if (user.id.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        { password: hashedPassword },
+        {
+            new: true,
+        }
+    );
+
+    res.status(200).json(updatedUser);
+});
+
 // Generate JWT
-const generateToken = (id) => {
+const generateToken = (id, remember) => {
+    const expiresIn = remember ? '30d' : '1d';
     return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
+        expiresIn,
     });
 };
 
@@ -86,4 +124,5 @@ module.exports = {
     registerUser,
     loginUser,
     getMe,
+    updateUser,
 };
