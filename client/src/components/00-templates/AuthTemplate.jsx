@@ -2,8 +2,8 @@
 /* ---- React Component - Authentication Pages Template ------------------------------------------- */
 
 import { useEffect, useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useNavigate, Outlet, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
     useMantineTheme,
@@ -17,12 +17,13 @@ import {
 
 import { DotsVertical, Login, Pencil, CloudLockOpen, Settings, Sun, MoonStars } from 'tabler-icons-react';
 
-import { ChangeThemeWrapper } from '../';
-
 import { Loader, Body, Section, Logo } from '../';
 
 export const AuthTemplate = () => {
-    const { isLoading } = useSelector((state) => state.auth);
+    const { user, isLoading } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     const [opened, setOpened] = useState(false);
     const theme = useMantineTheme();
@@ -35,11 +36,16 @@ export const AuthTemplate = () => {
     };
 
     useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
         root.addEventListener('click', handleRootClick);
         return () => {
             root.removeEventListener('click', handleRootClick);
         };
-    });
+    }, [user, navigate, dispatch]);
+
+    if (user) return <></>;
 
     return (
         <>

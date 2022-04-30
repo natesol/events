@@ -2,23 +2,21 @@
 /* ---- Redux Slice - User Authentication --------------------------------------------------------- */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import authService, { USER_AUTHENTICATION_KEY } from './authService';
 
-// Get user from localStorage.
-const user = JSON.parse(localStorage.getItem(USER_AUTHENTICATION_KEY));
+import userAuthService, { getUser } from './userAuthService';
 
 const initialState = {
-    user: user ? user : null,
+    user: getUser(),
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: '',
 };
 
-// Register new user.
-export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
+// Register a new user.
+export const createUser = createAsyncThunk('auth/register', async (user, thunkAPI) => {
     try {
-        return await authService.register(user);
+        return await userAuthService.createUser(user);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -29,9 +27,9 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
 });
 
 // Login user.
-export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+export const loginUser = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     try {
-        return await authService.login(user);
+        return await userAuthService.loginUser(user);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -42,15 +40,15 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 });
 
 // Logout user.
-export const logout = createAsyncThunk('auth/logout', async () => {
-    await authService.logout();
+export const logoutUser = createAsyncThunk('auth/logout', async () => {
+    await userAuthService.logoutUser();
 });
 
 // Update user.
-export const update = createAsyncThunk('auth/update', async (newData, thunkAPI) => {
+export const updateUser = createAsyncThunk('auth/update', async (newData, thunkAPI) => {
     try {
         const user = thunkAPI.getState().auth.user;
-        return await authService.updateUser(newData, user._id, user.token);
+        return await userAuthService.updateUser(newData, user._id, user.token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -60,10 +58,23 @@ export const update = createAsyncThunk('auth/update', async (newData, thunkAPI) 
     }
 });
 
-export const remove = () => {};
+// Delete user.
+// TODO: Add delete user.
+export const deleteUser = createAsyncThunk('auth/delete', async (newData, thunkAPI) => {
+    try {
+        const user = thunkAPI.getState().auth.user;
+        return await userAuthService.deleteUser(newData, user._id, user.token);
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
 
 // User authentication slice.
-export const authSlice = createSlice({
+export const userAuthSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -76,45 +87,45 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(register.pending, (state) => {
+            .addCase(createUser.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(register.fulfilled, (state, action) => {
+            .addCase(createUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.user = action.payload;
             })
-            .addCase(register.rejected, (state, action) => {
+            .addCase(createUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
                 state.user = null;
             })
-            .addCase(login.pending, (state) => {
+            .addCase(loginUser.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(login.fulfilled, (state, action) => {
+            .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.user = action.payload;
             })
-            .addCase(login.rejected, (state, action) => {
+            .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
                 state.user = null;
             })
-            .addCase(logout.fulfilled, (state) => {
+            .addCase(logoutUser.fulfilled, (state) => {
                 state.user = null;
             })
-            .addCase(update.pending, (state) => {
+            .addCase(updateUser.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(update.fulfilled, (state) => {
+            .addCase(updateUser.fulfilled, (state) => {
                 state.isLoading = false;
                 state.isSuccess = true;
             })
-            .addCase(update.rejected, (state, action) => {
+            .addCase(updateUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
@@ -122,12 +133,9 @@ export const authSlice = createSlice({
     },
 });
 
-const { reset } = authSlice.actions;
-
-const authReducer = authSlice.reducer;
-
-export { authReducer, reset as authReset, update as updateUser };
-export default authReducer;
+export const { resetUserAuthState: reset } = userAuthSlice.actions;
+export const userAuthReducer = userAuthSlice.reducer;
+export default userAuthReducer;
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

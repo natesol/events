@@ -1,8 +1,9 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ---- Redux Features (Slices, Actions, & Reducers) - Barrel File -------------------------------- */
 
-export * from './auth/authSlice';
-export * from './goals/goalSlice';
+export * from './userAuth/userAuthSlice';
+export * from './userPref/userPrefSlice';
+export * from './events/eventsSlice';
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

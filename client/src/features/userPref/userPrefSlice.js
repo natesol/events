@@ -1,19 +1,22 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Redux Slice - User Preferences ------------------------------------------------------------ */
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import goalService from './goalService';
+
+import userPrefService, { getUser } from './userPrefService';
 
 const initialState = {
-    goals: [],
+    user: getUser(),
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: '',
 };
 
-// Create new goal
-export const createGoal = createAsyncThunk('goals/create', async (goalData, thunkAPI) => {
+// Register a new user.
+export const createUser = createAsyncThunk('pref/register', async (user, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token;
-        return await goalService.createGoal(goalData, token);
+        return await userPrefService.createUser(user);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -23,11 +26,10 @@ export const createGoal = createAsyncThunk('goals/create', async (goalData, thun
     }
 });
 
-// Get user goals
-export const getGoals = createAsyncThunk('goals/getAll', async (_, thunkAPI) => {
+// Login user.
+export const loginUser = createAsyncThunk('pref/login', async (user, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token;
-        return await goalService.getGoals(token);
+        return await userPrefService.loginUser(user);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -37,11 +39,16 @@ export const getGoals = createAsyncThunk('goals/getAll', async (_, thunkAPI) => 
     }
 });
 
-// Delete user goal
-export const deleteGoal = createAsyncThunk('goals/delete', async (id, thunkAPI) => {
+// Logout user.
+export const logoutUser = createAsyncThunk('pref/logout', async () => {
+    await userPrefService.logoutUser();
+});
+
+// Update user.
+export const updateUser = createAsyncThunk('pref/update', async (newData, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token;
-        return await goalService.deleteGoal(id, token);
+        const user = thunkAPI.getState().pref.user;
+        return await userPrefService.updateUser(newData, user._id, user.token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -51,11 +58,11 @@ export const deleteGoal = createAsyncThunk('goals/delete', async (id, thunkAPI) 
     }
 });
 
-//Update user goal
-export const updateGoal = createAsyncThunk('goals/update', async (goalData, thunkAPI) => {
+// Delete user.
+export const deleteUser = createAsyncThunk('pref/delete', async (newData, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token;
-        return await goalService.updateGoal(goalData._id, goalData.text, token);
+        const user = thunkAPI.getState().pref.user;
+        return await userPrefService.deleteUser(newData, user._id, user.token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -65,58 +72,23 @@ export const updateGoal = createAsyncThunk('goals/update', async (goalData, thun
     }
 });
 
-export const goalSlice = createSlice({
-    name: 'goal',
+// User preferences slice.
+export const prefSlice = createSlice({
+    name: 'pref',
     initialState,
     reducers: {
-        reset: (state) => initialState,
-    },
-    extraReducers: (builder) => {
-        builder
-            .addCase(createGoal.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(createGoal.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.goals.push(action.payload);
-            })
-            .addCase(createGoal.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-            })
-            .addCase(getGoals.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(getGoals.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.goals = action.payload;
-            })
-            .addCase(getGoals.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-            })
-            .addCase(deleteGoal.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(deleteGoal.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.goals = state.goals.filter((goal) => goal._id !== action.payload.id);
-            })
-            .addCase(deleteGoal.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-            });
+        reset: (state) => {
+            state.isLoading = false;
+            state.isSuccess = false;
+            state.isError = false;
+            state.message = '';
+        },
     },
 });
 
-const { reset } = goalSlice.actions;
-const goalReducer = goalSlice.reducer;
+export const { resetUserPrefState: reset } = prefSlice.actions;
+export const prefReducer = prefSlice.reducer;
+export default prefReducer;
 
-export { goalReducer, reset as goalsReset };
-export default goalReducer;
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

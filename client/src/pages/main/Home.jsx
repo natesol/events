@@ -7,15 +7,8 @@ import { Anchor, ScrollArea, Box } from '@mantine/core';
 
 export const Home = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const { user } = useSelector((state) => state.auth);
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user, navigate, dispatch]);
 
     return (
         <>

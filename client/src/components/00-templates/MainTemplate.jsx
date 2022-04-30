@@ -1,9 +1,9 @@
 /* ------------------------------------------------------------------------------------------------ */
 /* ---- React Component - Main App Pages Template ------------------------------------------------- */
 
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
     MediaQuery,
@@ -44,16 +44,26 @@ const useStyles = createStyles((theme) => ({
 
 export const MainTemplate = () => {
     const { user, isLoading } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { classes } = useStyles();
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
 
     const appSize = 'sm';
 
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate, dispatch]);
+
+    if (!user) return <></>;
+
     return (
         <>
             <Loader fullPage visible={isLoading} />
-
             <MediaQuery smallerThan='sm' styles={{ display: 'none' }}>
                 <AppShell
                     styles={{

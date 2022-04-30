@@ -3,15 +3,13 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 
-import authReducer from '../features/auth/authSlice';
-import goalReducer from '../features/auth/authSlice';
+import { userAuthReducer, userPrefReducer, eventsReducer } from '../features';
 
 export const store = configureStore({
     reducer: {
-        auth: authReducer,
-        // userPref: userPrefReducer,
-        // events: eventsReducer,
-        goals: goalReducer,
+        userAuth: userAuthReducer,
+        userPref: userPrefReducer,
+        events: eventsReducer,
     },
 });
 
