@@ -1,20 +1,27 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Events Routes Controller ------------------------------------------------------------------ */
+
 const asyncHandler = require('express-async-handler');
 
 const Event = require('../models/eventModel');
 const User = require('../models/userModel');
 
-// @desc    Get events
-// @route   GET /api/events
-// @access  Private
+/**
+ @desc    Get user events.
+ @route   GET -> /api/events
+ @access  Private
+*/
 const getEvents = asyncHandler(async (req, res) => {
     const events = await Event.find({ user: req.user.id });
 
     res.status(200).json(events);
 });
 
-// @desc    Set event
-// @route   POST /api/events
-// @access  Private
+/**
+ @desc    Create a new event.
+ @route   POST -> /api/events
+ @access  Private
+*/
 const setEvent = asyncHandler(async (req, res) => {
     if (!req.body.text) {
         res.status(400);
@@ -36,9 +43,11 @@ const setEvent = asyncHandler(async (req, res) => {
     res.status(200).json(event);
 });
 
-// @desc    Update event
-// @route   PUT /api/events/:id
-// @access  Private
+/**
+ @desc    Update an event.
+ @route   PUT -> /api/events/:id
+ @access  Private
+*/
 const updateEvent = asyncHandler(async (req, res) => {
     const event = await Event.findById(req.params.id);
 
@@ -66,9 +75,11 @@ const updateEvent = asyncHandler(async (req, res) => {
     res.status(200).json(updatedEvent);
 });
 
-// @desc    Delete event
-// @route   DELETE /api/events/:id
-// @access  Private
+/**
+ @desc    Delete an event.
+ @route   DELETE -> /api/events/:id
+ @access  Private
+*/
 const deleteEvent = asyncHandler(async (req, res) => {
     const event = await Event.findById(req.params.id);
 
@@ -100,3 +111,6 @@ module.exports = {
     updateEvent,
     deleteEvent,
 };
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

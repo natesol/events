@@ -2,11 +2,27 @@
 /* ---- Redux Slice Services - User Authentication ------------------------------------------------ */
 
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 import { KEYS_PREFIX } from '../../utilities/constants';
 
 const USER_AUTHENTICATION_API_URL = '/api/users/';
 const USER_AUTHENTICATION_KEY = KEYS_PREFIX + 'user-data';
+
+//
+export const validateUserToken = async () => {
+    const token = getUser()?.token;
+
+    if (token) {
+        const decoded = jwtDecode(token);
+
+        // Check for expired token
+        const currentTime = Date.now() / 1000;
+        if (decoded.exp < currentTime) {
+            await logoutUser();
+        }
+    }
+};
 
 // Get the current user data.
 export const getUser = () => JSON.parse(localStorage.getItem(USER_AUTHENTICATION_KEY));
@@ -24,6 +40,8 @@ export const createUser = async (userData) => {
 
 // Login user.
 export const loginUser = async (userData) => {
+    console.log(userData);
+
     const response = await axios.post(USER_AUTHENTICATION_API_URL + 'login', userData);
 
     if (response.data) {
@@ -64,6 +82,17 @@ export const deleteUser = async (userId, token) => {
 
     return response.data;
 };
+
+const userAuthService = {
+    validateUserToken,
+    getUser,
+    createUser,
+    loginUser,
+    logoutUser,
+    updateUser,
+    deleteUser,
+};
+export default userAuthService;
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

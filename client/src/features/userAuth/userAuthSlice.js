@@ -3,10 +3,11 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import userAuthService, { getUser } from './userAuthService';
+import userAuthService from './userAuthService';
 
+const user = userAuthService.getUser();
 const initialState = {
-    user: getUser(),
+    user: user,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -133,7 +134,8 @@ export const userAuthSlice = createSlice({
     },
 });
 
-export const { resetUserAuthState: reset } = userAuthSlice.actions;
+const { reset } = userAuthSlice.actions;
+export { reset as resetUserAuthState };
 export const userAuthReducer = userAuthSlice.reducer;
 export default userAuthReducer;
 

@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------------------------------------ */
-/* ---- Redux Slice Services - User Authentication ------------------------------------------------ */
+/* ---- Redux Slice Services - Pref Preferences --------------------------------------------------- */
 
 import axios from 'axios';
 
@@ -9,10 +9,10 @@ const USER_AUTHENTICATION_API_URL = '/api/users/';
 const USER_AUTHENTICATION_KEY = KEYS_PREFIX + 'user-data';
 
 // Get the current user data.
-export const getUser = () => JSON.parse(localStorage.getItem(USER_AUTHENTICATION_KEY));
+export const getPref = () => JSON.parse(localStorage.getItem(USER_AUTHENTICATION_KEY));
 
 // Register a new user.
-export const createUser = async (userData) => {
+export const createPref = async (userData) => {
     const response = await axios.post(USER_AUTHENTICATION_API_URL, userData);
 
     if (response.data) {
@@ -22,24 +22,8 @@ export const createUser = async (userData) => {
     return response.data;
 };
 
-// Login user.
-export const loginUser = async (userData) => {
-    const response = await axios.post(USER_AUTHENTICATION_API_URL + 'login', userData);
-
-    if (response.data) {
-        localStorage.setItem(USER_AUTHENTICATION_KEY, JSON.stringify(response.data));
-    }
-
-    return response.data;
-};
-
-// Logout user.
-export const logoutUser = async () => {
-    localStorage.removeItem(USER_AUTHENTICATION_KEY);
-};
-
 // Update user.
-export const updateUser = async (newData, userId, token) => {
+export const updatePref = async (newData, userId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -53,7 +37,7 @@ export const updateUser = async (newData, userId, token) => {
 
 // Delete user.
 // TODO: Add delete user.
-export const deleteUser = async (userId, token) => {
+export const deletePref = async (userId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -64,6 +48,14 @@ export const deleteUser = async (userId, token) => {
 
     return response.data;
 };
+
+const userPrefService = {
+    getPref,
+    createPref,
+    updatePref,
+    deletePref,
+};
+export default userPrefService;
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

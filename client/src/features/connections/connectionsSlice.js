@@ -1,22 +1,22 @@
 /* ------------------------------------------------------------------------------------------------ */
-/* ---- Redux Slice - User Events ----------------------------------------------------------------- */
+/* ---- Redux Slice - User Connections ----------------------------------------------------------------- */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import eventsService from './eventsService';
+import connectionsService from './connectionsService';
 
 const initialState = {
-    events: [],
+    connections: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: '',
 };
 
-// Create new event
-export const createEvent = createAsyncThunk('events/create', async (eventData, thunkAPI) => {
+// Create new connection
+export const createConnection = createAsyncThunk('connections/create', async (connectionData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await eventsService.createEvent(eventData, token);
+        return await connectionsService.createConnection(connectionData, token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -26,11 +26,11 @@ export const createEvent = createAsyncThunk('events/create', async (eventData, t
     }
 });
 
-// Get user events
-export const getEvents = createAsyncThunk('events/getAll', async (_, thunkAPI) => {
+// Get user connections
+export const getConnections = createAsyncThunk('connections/getAll', async (_, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await eventsService.getEvents(token);
+        return await connectionsService.getConnections(token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -40,11 +40,11 @@ export const getEvents = createAsyncThunk('events/getAll', async (_, thunkAPI) =
     }
 });
 
-// Delete user event
-export const deleteEvent = createAsyncThunk('events/delete', async (id, thunkAPI) => {
+// Delete user connection
+export const deleteConnection = createAsyncThunk('connections/delete', async (id, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await eventsService.deleteEvent(id, token);
+        return await connectionsService.deleteConnection(id, token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -54,11 +54,11 @@ export const deleteEvent = createAsyncThunk('events/delete', async (id, thunkAPI
     }
 });
 
-//Update user event
-export const updateEvent = createAsyncThunk('events/update', async (eventData, thunkAPI) => {
+//Update user connection
+export const updateConnection = createAsyncThunk('connections/update', async (connectionData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await eventsService.updateEvent(eventData._id, eventData.text, token);
+        return await connectionsService.updateConnection(connectionData._id, connectionData.text, token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -68,49 +68,51 @@ export const updateEvent = createAsyncThunk('events/update', async (eventData, t
     }
 });
 
-export const eventsSlice = createSlice({
-    name: 'events',
+export const connectionsSlice = createSlice({
+    name: 'connections',
     initialState,
     reducers: {
         reset: (state) => initialState,
     },
     extraReducers: (builder) => {
         builder
-            .addCase(createEvent.pending, (state) => {
+            .addCase(createConnection.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(createEvent.fulfilled, (state, action) => {
+            .addCase(createConnection.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.events.push(action.payload);
+                state.connections.push(action.payload);
             })
-            .addCase(createEvent.rejected, (state, action) => {
+            .addCase(createConnection.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
             })
-            .addCase(getEvents.pending, (state) => {
+            .addCase(getConnections.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(getEvents.fulfilled, (state, action) => {
+            .addCase(getConnections.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.events = action.payload;
+                state.connections = action.payload;
             })
-            .addCase(getEvents.rejected, (state, action) => {
+            .addCase(getConnections.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
             })
-            .addCase(deleteEvent.pending, (state) => {
+            .addCase(deleteConnection.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(deleteEvent.fulfilled, (state, action) => {
+            .addCase(deleteConnection.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.events = state.events.filter((event) => event._id !== action.payload.id);
+                state.connections = state.connections.filter(
+                    (connection) => connection._id !== action.payload.id
+                );
             })
-            .addCase(deleteEvent.rejected, (state, action) => {
+            .addCase(deleteConnection.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
@@ -118,11 +120,11 @@ export const eventsSlice = createSlice({
     },
 });
 
-const { reset } = eventsSlice.actions;
-const eventsReducer = eventsSlice.reducer;
+const { reset } = connectionsSlice.actions;
+const connectionsReducer = connectionsSlice.reducer;
 
-export { eventsReducer, reset as eventsReset };
-export default eventsReducer;
+export { connectionsReducer, reset as connectionsReset };
+export default connectionsReducer;
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

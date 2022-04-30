@@ -43,7 +43,7 @@ export const AuthTemplate = () => {
         return () => {
             root.removeEventListener('click', handleRootClick);
         };
-    }, [user, navigate, dispatch]);
+    });
 
     if (user) return <></>;
 

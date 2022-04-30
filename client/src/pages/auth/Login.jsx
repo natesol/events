@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, authReset } from '../../features';
+import { loginUser, resetUserAuthState } from '../../features';
 
 import { useForm } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
@@ -69,7 +69,7 @@ export const Login = () => {
     };
 
     const submitForm = () => {
-        dispatch(login(form.values));
+        dispatch(loginUser(form.values));
     };
 
     useEffect(() => {
@@ -82,7 +82,7 @@ export const Login = () => {
         } else if (isSuccess || user) {
             navigate('/');
         }
-        dispatch(authReset());
+        dispatch(resetUserAuthState());
     }, [isError, isSuccess, user, message, navigate, dispatch]);
 
     return (

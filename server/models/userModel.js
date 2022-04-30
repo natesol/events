@@ -1,20 +1,10 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- DataBase Model - Users - Mongoose Schema -------------------------------------------------- */
+
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema(
     {
-        // name: {
-        //     type: String,
-        //     required: [true, 'Please add a name'],
-        // },
-        avatar: {
-            type: String,
-        },
-        phone: {
-            type: String,
-        },
-        payment: {
-            type: String,
-        },
         firstName: {
             type: String,
             required: [true, 'Please add a name'],
@@ -32,6 +22,15 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a password'],
         },
+        avatar: {
+            type: String,
+        },
+        phone: {
+            type: String,
+        },
+        payment: {
+            type: String,
+        },
     },
     {
         timestamps: true,
@@ -39,3 +38,6 @@ const userSchema = mongoose.Schema(
 );
 
 module.exports = mongoose.model('User', userSchema);
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-export const Friends = () => {
+export const Connections = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -17,10 +17,10 @@ export const Friends = () => {
     return (
         <>
             <section className='heading'>
-                <h1>Friends</h1>
+                <h1>Connections</h1>
             </section>
         </>
     );
 };
 
-export default Friends;
+export default Connections;

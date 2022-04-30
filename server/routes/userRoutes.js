@@ -1,7 +1,12 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Users Routes Initialization --------------------------------------------------------------- */
+
 const express = require('express');
-const router = express.Router();
+
 const { registerUser, loginUser, getMe, updateUser } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
+
+const router = express.Router();
 
 router.post('/', registerUser);
 router.post('/login', loginUser);
@@ -9,3 +14,6 @@ router.put('/:id', protect, updateUser);
 router.get('/me', protect, getMe);
 
 module.exports = router;
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

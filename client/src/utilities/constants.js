@@ -2,7 +2,7 @@
 /* ---- Global Constants -------------------------------------------------------------------------- */
 
 //
-const KEYS_PREFIX = 'events-';
+export const KEYS_PREFIX = 'events-';
 
 //
 export const USER_PREFERENCES_KEY = KEYS_PREFIX + 'user-preferences';

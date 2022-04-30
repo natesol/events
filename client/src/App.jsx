@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 
+import { validateUserToken } from './features';
+
 import { EMOTION_OPTIONS, CUSTOM_THEME_BASE, CUSTOM_THEME_DEFAULTS, CUSTOM_THEME_STYLES } from './utilities';
 
 import { AuthTemplate, MainTemplate } from './components';
@@ -20,7 +22,7 @@ import {
     Home,
     Profile,
     Settings,
-    Friends,
+    Connections,
     Notifications,
     // Events
     Events,
@@ -37,6 +39,7 @@ const App = () => {
     };
 
     useEffect(() => {
+        validateUserToken();
         document.documentElement.setAttribute('data-theme', colorScheme);
     }, [colorScheme]);
 
@@ -66,7 +69,7 @@ const App = () => {
                                 <Route index element={<Home />} />
                                 <Route path='profile' element={<Profile />} />
                                 <Route path='settings' element={<Settings />} />
-                                <Route path='friends' element={<Friends />} />
+                                <Route path='connections' element={<Connections />} />
                                 <Route path='notifications' element={<Notifications />} />
                             </Route>
                             <Route path='/events' element={<MainTemplate />}>

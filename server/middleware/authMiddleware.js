@@ -1,9 +1,13 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* ---- Authentication Middleware ----------------------------------------------------------------- */
+
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 
+// Protect a rout.
 const protect = asyncHandler(async (req, res, next) => {
-    let token;
+    let token = null;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
@@ -31,3 +35,6 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 module.exports = { protect };
+
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */

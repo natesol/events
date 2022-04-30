@@ -1,25 +1,25 @@
 /* ------------------------------------------------------------------------------------------------ */
-/* ---- Redux Slice Services - User Events -------------------------------------------------------- */
+/* ---- Redux Slice Services - User Connections -------------------------------------------------------- */
 
 import axios from 'axios';
 
-const API_URL = '/api/events/';
+const API_URL = '/api/connections/';
 
-// Create new event
-const createEvent = async (eventData, token) => {
+// Create new connection
+const createConnection = async (connectionData, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     };
 
-    const response = await axios.post(API_URL, eventData, config);
+    const response = await axios.post(API_URL, connectionData, config);
 
     return response.data;
 };
 
-// Get user events
-const getEvents = async (token) => {
+// Get user connections
+const getConnections = async (token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -31,40 +31,40 @@ const getEvents = async (token) => {
     return response.data;
 };
 
-// Update user event
-const updateEvent = async (eventId, eventData, token) => {
+// Update user connection
+const updateConnection = async (connectionId, connectionData, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     };
 
-    const response = await axios.put(API_URL + eventId, { text: eventData }, config);
+    const response = await axios.put(API_URL + connectionId, { text: connectionData }, config);
 
     return response.data;
 };
 
-// Delete user event
-const deleteEvent = async (eventId, token) => {
+// Delete user connection
+const deleteConnection = async (connectionId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     };
 
-    const response = await axios.delete(API_URL + eventId, config);
+    const response = await axios.delete(API_URL + connectionId, config);
 
     return response.data;
 };
 
-const eventService = {
-    createEvent,
-    getEvents,
-    deleteEvent,
-    updateEvent,
+const connectionService = {
+    createConnection,
+    getConnections,
+    deleteConnection,
+    updateConnection,
 };
 
-export default eventService;
+export default connectionService;
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

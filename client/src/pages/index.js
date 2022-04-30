@@ -10,7 +10,7 @@ export * from './auth/ResetPassword';
 export * from './main/Home';
 export * from './main/Profile';
 export * from './main/Settings';
-export * from './main/Friends';
+export * from './main/Connections';
 export * from './main/Notifications';
 
 // Events pages

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { register, authReset } from '../../features';
+import { createUser, resetUserAuthState } from '../../features';
 
 import {
     createStyles,
@@ -58,7 +58,7 @@ export const Register = () => {
         } else if (isSuccess || user) {
             navigate('/');
         }
-        dispatch(authReset());
+        dispatch(resetUserAuthState());
     }, [isError, isSuccess, user, message, navigate, dispatch]);
 
     const [showModal, setShowModal] = useState(false);
@@ -140,7 +140,7 @@ export const Register = () => {
     };
 
     const submitForm = () => {
-        dispatch(register(form.values));
+        dispatch(createUser(form.values));
     };
 
     return (

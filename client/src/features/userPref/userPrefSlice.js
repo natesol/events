@@ -1,12 +1,12 @@
 /* ------------------------------------------------------------------------------------------------ */
-/* ---- Redux Slice - User Preferences ------------------------------------------------------------ */
+/* ---- Redux Slice - Pref Preferences ------------------------------------------------------------ */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import userPrefService, { getUser } from './userPrefService';
+import userPrefService from './userPrefService';
 
 const initialState = {
-    user: getUser(),
+    user: userPrefService.getPref(),
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -14,9 +14,9 @@ const initialState = {
 };
 
 // Register a new user.
-export const createUser = createAsyncThunk('pref/register', async (user, thunkAPI) => {
+export const createPref = createAsyncThunk('pref/register', async (user, thunkAPI) => {
     try {
-        return await userPrefService.createUser(user);
+        return await userPrefService.createPref(user);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -27,9 +27,9 @@ export const createUser = createAsyncThunk('pref/register', async (user, thunkAP
 });
 
 // Login user.
-export const loginUser = createAsyncThunk('pref/login', async (user, thunkAPI) => {
+export const loginPref = createAsyncThunk('pref/login', async (user, thunkAPI) => {
     try {
-        return await userPrefService.loginUser(user);
+        return await userPrefService.loginPref(user);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -40,15 +40,15 @@ export const loginUser = createAsyncThunk('pref/login', async (user, thunkAPI) =
 });
 
 // Logout user.
-export const logoutUser = createAsyncThunk('pref/logout', async () => {
-    await userPrefService.logoutUser();
+export const logoutPref = createAsyncThunk('pref/logout', async () => {
+    await userPrefService.logoutPref();
 });
 
 // Update user.
-export const updateUser = createAsyncThunk('pref/update', async (newData, thunkAPI) => {
+export const updatePref = createAsyncThunk('pref/update', async (newData, thunkAPI) => {
     try {
         const user = thunkAPI.getState().pref.user;
-        return await userPrefService.updateUser(newData, user._id, user.token);
+        return await userPrefService.updatePref(newData, user._id, user.token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -59,10 +59,10 @@ export const updateUser = createAsyncThunk('pref/update', async (newData, thunkA
 });
 
 // Delete user.
-export const deleteUser = createAsyncThunk('pref/delete', async (newData, thunkAPI) => {
+export const deletePref = createAsyncThunk('pref/delete', async (newData, thunkAPI) => {
     try {
         const user = thunkAPI.getState().pref.user;
-        return await userPrefService.deleteUser(newData, user._id, user.token);
+        return await userPrefService.deletePref(newData, user._id, user.token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -72,8 +72,8 @@ export const deleteUser = createAsyncThunk('pref/delete', async (newData, thunkA
     }
 });
 
-// User preferences slice.
-export const prefSlice = createSlice({
+// Pref preferences slice.
+export const userPrefSlice = createSlice({
     name: 'pref',
     initialState,
     reducers: {
@@ -86,9 +86,9 @@ export const prefSlice = createSlice({
     },
 });
 
-export const { resetUserPrefState: reset } = prefSlice.actions;
-export const prefReducer = prefSlice.reducer;
-export default prefReducer;
+export const { resetPrefPrefState: reset } = userPrefSlice.actions;
+export const userPrefReducer = userPrefSlice.reducer;
+export default userPrefReducer;
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { logout, authReset } from '../../features';
+import { logoutUser, resetUserAuthState } from '../../features';
 
 import { useToggle } from '@mantine/hooks';
 import {
@@ -61,8 +61,8 @@ export const Header = ({ size = 'xs' }) => {
 
     const onLogout = () => {
         setShowModal(false);
-        dispatch(logout());
-        dispatch(authReset());
+        dispatch(logoutUser());
+        dispatch(resetUserAuthState());
         navigate('/');
     };
 
