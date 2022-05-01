@@ -40,6 +40,8 @@ const App = () => {
 
     useEffect(() => {
         validateUserToken();
+    });
+    useEffect(() => {
         document.documentElement.setAttribute('data-theme', colorScheme);
     }, [colorScheme]);
 
