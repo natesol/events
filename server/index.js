@@ -8,7 +8,7 @@ const dotenv = require('dotenv').config();
 const { errorHandler } = require('./middleware/errorMiddleware');
 const { connectToDB } = require('./config/db');
 const PORT = process.env.PORT || 5000;
-
+// elnatan hayapo
 // Starting the server.
 connectToDB();
 const app = express();
