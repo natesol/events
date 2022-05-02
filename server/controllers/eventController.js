@@ -12,7 +12,8 @@ const User = require('../models/userModel');
  @access  Private
 */
 const getEvents = asyncHandler(async (req, res) => {
-    const events = await Event.find({ user: req.user.id });
+    const events = await Event.findById(req.user.id);
+    console.log(Event);
 
     res.status(200).json(events);
 });
@@ -23,18 +24,27 @@ const getEvents = asyncHandler(async (req, res) => {
  @access  Private
 */
 const setEvent = asyncHandler(async (req, res) => {
-    if (!req.body.text) {
+    if (!req.body.name) {
         res.status(400);
-        throw new Error('Please add a text field');
+        throw new Error('Please add event name');
     }
 
-    const users = req.body.users.map(async (mail) => {
+    /* const users = req.body.map(async (mail) => {
         return await User.findOne({ email: mail }).exec()._id;
-    });
+    });*/
+
+    const contacts = req.body.users.split(' ');
+    const users = [];
+
+    for (let index = 0; index < contacts.length; index++) {
+        users[index] = await User.findOne({ email: contacts[index] }).exec();
+    }
+    console.log(users);
+    console.log(contacts);
 
     const event = await Event.create({
         admins: [req.user.id],
-        users,
+        users: users,
         name: req.body.name,
         date: req.body.date,
         location: req.body.location || '',
