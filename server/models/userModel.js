@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a password'],
         },
-        avatar: {
+        image: {
             type: String,
         },
         phone: {
@@ -39,7 +39,31 @@ const userSchema = mongoose.Schema(
                 ref: 'User',
             },
         ],
+        preferences: {
+            type: String,
+        },
+
+        alerts: [
+            {
+                title: {
+                    type: String,
+                },
+
+                message: {
+                    type: String,
+                },
+                assignment: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Assignment',
+                },
+                budget: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Budget',
+                },
+            },
+        ],
     },
+
     {
         timestamps: true,
     }
