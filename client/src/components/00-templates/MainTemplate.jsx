@@ -51,7 +51,7 @@ export const MainTemplate = () => {
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
 
-    const appSize = 'sm';
+    const appSize = 'md';
 
     useEffect(() => {
         if (!user) {
@@ -64,7 +64,7 @@ export const MainTemplate = () => {
     return (
         <>
             <Loader fullPage visible={isLoading} />
-            <MediaQuery smallerThan='sm' styles={{ display: 'none' }}>
+            <MediaQuery smallerThan={appSize} styles={{ display: 'none' }}>
                 <AppShell
                     styles={{
                         main: {
@@ -118,7 +118,7 @@ export const MainTemplate = () => {
                 </AppShell>
             </MediaQuery>
 
-            <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
+            <MediaQuery largerThan={appSize} styles={{ display: 'none' }}>
                 <Body withHeader size={appSize}>
                     <Header size={appSize} />
                     <Container

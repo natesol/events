@@ -31,6 +31,14 @@ const userSchema = mongoose.Schema(
         payment: {
             type: String,
         },
+        connections: [
+            {
+                // type: mongoose.Schema.Types.ObjectId,
+                type: String,
+                required: false,
+                ref: 'User',
+            },
+        ],
     },
     {
         timestamps: true,
