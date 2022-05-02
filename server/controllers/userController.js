@@ -90,6 +90,16 @@ const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     const { password } = req.body;
 
+    if (req.body.connections) {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+            connections: req.body.connections,
+        });
+
+        console.log(req.body, req.params);
+
+        res.status(200).json(updatedUser);
+    }
+
     // Check for user
     if (!req.user) {
         res.status(400);

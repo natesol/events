@@ -110,8 +110,8 @@ export const Header = ({ size = 'xs' }) => {
                             <Menu.Item component={NavLink} to='/notifications' icon={<Bell size={16} />}>
                                 Notifications
                             </Menu.Item>
-                            <Menu.Item component={NavLink} to='/friends' icon={<Users size={16} />}>
-                                Friends
+                            <Menu.Item component={NavLink} to='/connections' icon={<Users size={16} />}>
+                                Connections
                             </Menu.Item>
                             <Divider />
 

@@ -13,7 +13,7 @@ const initialState = {
 };
 
 // Create new connection
-export const createConnection = createAsyncThunk('connections/create', async (connectionData, thunkAPI) => {
+export const addConnection = createAsyncThunk('connections/create', async (connectionData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
         return await connectionsService.createConnection(connectionData, token);
@@ -76,15 +76,15 @@ export const connectionsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(createConnection.pending, (state) => {
+            .addCase(addConnection.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(createConnection.fulfilled, (state, action) => {
+            .addCase(addConnection.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.connections.push(action.payload);
             })
-            .addCase(createConnection.rejected, (state, action) => {
+            .addCase(addConnection.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
