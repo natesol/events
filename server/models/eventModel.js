@@ -30,7 +30,23 @@ const eventSchema = mongoose.Schema(
         location: {
             type: String,
         },
+        image: {
+            type: String,
+        },
+        chat: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Chat',
+        },
+        assignments: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Assignments',
+        },
+        budget: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Budget',
+        },
     },
+
     {
         timestamps: true,
     }
