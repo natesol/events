@@ -12,13 +12,15 @@ const User = require('../models/userModel');
  @access  Private
 */
 const getEvents = asyncHandler(async (req, res) => {
-    const events = [];
+    const events = await Event.find().where('_id').in(req.user.events).exec();
+    console.log(events);
+    res.status(200).json(events);
 
-    for (let index = 0; index < req.user.events.length; index++) {
+    /*
+     for (let index = 0; index < req.user.events.length; index++) {
         events[index] = await Event.findById(req.user.events[index]);
     }
-
-    res.status(200).json(events);
+    */
 });
 
 /**
@@ -43,13 +45,14 @@ const setEvent = asyncHandler(async (req, res) => {
     }
 
     const contacts = req.body.users.split(' ');
-    const users = [];
-
+    const users = await User.find().where('email').in(contacts).exec();
+    console.log(users);
+    /*
     //Array of users
     for (let index = 0; index < contacts.length; index++) {
         users[index] = await User.findOne({ email: contacts[index] }).exec();
     }
-
+*/
     const event = await Event.create({
         admins: [req.user.id],
         users: users,
