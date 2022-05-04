@@ -5,13 +5,8 @@ const mongoose = require('mongoose');
 
 const eventSchema = mongoose.Schema(
     {
-        admins: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                //  required: true,
-                ref: 'User',
-            },
-        ],
+        admins: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        //  required: true,
 
         users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
         //  required: true,
@@ -27,9 +22,11 @@ const eventSchema = mongoose.Schema(
         location: {
             type: String,
         },
-        image: {
-            type: String,
-        },
+        image: [
+            {
+                type: String,
+            },
+        ],
         chat: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Chat',
