@@ -5,6 +5,12 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema(
     {
+        events: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Event',
+            },
+        ],
         firstName: {
             type: String,
             required: [true, 'Please add a name'],
@@ -62,6 +68,10 @@ const userSchema = mongoose.Schema(
                 },
             },
         ],
+        verified: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     {

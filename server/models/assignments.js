@@ -24,7 +24,7 @@ const assignmentSchema = mongoose.Schema(
                     type: Date,
                     required: [true, 'Please add an event date'],
                 },
-                completed: {
+                status: {
                     type: Boolean,
                 },
                 users: [

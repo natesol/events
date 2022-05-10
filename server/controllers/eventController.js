@@ -12,9 +12,25 @@ const User = require('../models/userModel');
  @access  Private
 */
 const getEvents = asyncHandler(async (req, res) => {
-    const events = await Event.find({ user: req.user.id });
-
+    const events = await Event.find().where('_id').in(req.user.events).exec();
+    console.log(events);
     res.status(200).json(events);
+
+    /*
+     for (let index = 0; index < req.user.events.length; index++) {
+        events[index] = await Event.findById(req.user.events[index]);
+    }
+    */
+});
+
+/**
+ @desc    Get event.
+ @route   GET -> /api/events/:id
+ @access  Private
+*/
+const getEvent = asyncHandler(async (req, res) => {
+    const event = await Event.findById(req.params.id);
+    res.status(200).json(event);
 });
 
 /**
@@ -23,22 +39,34 @@ const getEvents = asyncHandler(async (req, res) => {
  @access  Private
 */
 const setEvent = asyncHandler(async (req, res) => {
-    if (!req.body.text) {
+    if (!req.body.name) {
         res.status(400);
-        throw new Error('Please add a text field');
+        throw new Error('Please add event name');
     }
 
-    const users = req.body.users.map(async (mail) => {
-        return await User.findOne({ email: mail }).exec()._id;
-    });
-
+    const contacts = req.body.users.split(' ');
+    const users = await User.find().where('email').in(contacts).exec();
+    console.log(users);
+    /*
+    //Array of users
+    for (let index = 0; index < contacts.length; index++) {
+        users[index] = await User.findOne({ email: contacts[index] }).exec();
+    }
+*/
     const event = await Event.create({
         admins: [req.user.id],
-        users,
+        users: users,
         name: req.body.name,
         date: req.body.date,
         location: req.body.location || '',
+        image: req.body.image,
     });
+
+    for (let index = 0; index < users.length; index++) {
+        await User.findByIdAndUpdate(users[index]._id, { $addToSet: { events: [event._id] } });
+    }
+
+    await User.findByIdAndUpdate(req.user.id, { $addToSet: { events: [event._id] } });
 
     res.status(200).json(event);
 });
@@ -62,8 +90,8 @@ const updateEvent = asyncHandler(async (req, res) => {
         throw new Error('User not found');
     }
 
-    // Make sure the logged in user matches the event user
-    if (event.user.toString() !== req.user.id) {
+    // Make sure the logged in user matches the event admins
+    if (!event.admins.includes(req.user.id)) {
         res.status(401);
         throw new Error('User not authorized');
     }
@@ -94,8 +122,8 @@ const deleteEvent = asyncHandler(async (req, res) => {
         throw new Error('User not found');
     }
 
-    // Make sure the logged in user matches the event user
-    if (event.user.toString() !== req.user.id) {
+    // Make sure the logged in user matches the event admins
+    if (!event.admins.includes(req.user.id)) {
         res.status(401);
         throw new Error('User not authorized');
     }
@@ -107,6 +135,7 @@ const deleteEvent = asyncHandler(async (req, res) => {
 
 module.exports = {
     getEvents,
+    getEvent,
     setEvent,
     updateEvent,
     deleteEvent,
