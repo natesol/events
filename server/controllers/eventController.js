@@ -36,8 +36,7 @@ const setEvent = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error('Please add event name');
     }
-    console.log(req);
-
+    console.log(req.file);
     const contacts = req.body.users.split(' ');
     const users = await User.find().where('email').in(contacts).exec();
     users.push(req.user);
@@ -48,7 +47,7 @@ const setEvent = asyncHandler(async (req, res) => {
         name: req.body.name,
         date: req.body.date,
         location: req.body.location || '',
-        image: req.body.image,
+        image: req.file.path,
         description: req.body.description,
     });
 

@@ -3,16 +3,28 @@
 
 const express = require('express');
 const multer = require('multer');
+
+const fileFilter = (req, file, cb) => {
+    cb(null, true);
+};
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './uploads/');
+        cb(null, './.../uploads/');
     },
     filename: (req, file, cb) => {
         cb(null, new Date().toISOString() + file.originalname);
     },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage,
+    // limits: {
+    //     fileSize: 1024 * 1024 * 10,
+    // },
+    // fileFilter: fileFilter,
+});
+// const upload = multer({ dest: 'uploads/' });
 
 const { getEvents, setEvent, updateEvent, deleteEvent, getEvent } = require('../controllers/eventController');
 const { protect } = require('../middleware/authMiddleware');

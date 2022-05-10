@@ -81,7 +81,7 @@ const App = () => {
                                 <Route path=':id' element={<SingleEvent />} />
                                 <Route path='*' element={<Events />} />
                             </Route>
-                            <Route path='/*' element={<MainTemplate />} />
+                            {/* <Route path='/*' element={<MainTemplate />} /> */}
                         </Routes>
                     </BrowserRouter>
                 </NotificationsProvider>
