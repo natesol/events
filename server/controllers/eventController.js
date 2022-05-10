@@ -13,14 +13,7 @@ const User = require('../models/userModel');
 */
 const getEvents = asyncHandler(async (req, res) => {
     const events = await Event.find().where('_id').in(req.user.events).exec();
-    console.log(events);
     res.status(200).json(events);
-
-    /*
-     for (let index = 0; index < req.user.events.length; index++) {
-        events[index] = await Event.findById(req.user.events[index]);
-    }
-    */
 });
 
 /**
@@ -43,16 +36,12 @@ const setEvent = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error('Please add event name');
     }
+    console.log(req);
 
     const contacts = req.body.users.split(' ');
     const users = await User.find().where('email').in(contacts).exec();
-    console.log(users);
-    /*
-    //Array of users
-    for (let index = 0; index < contacts.length; index++) {
-        users[index] = await User.findOne({ email: contacts[index] }).exec();
-    }
-*/
+    users.push(req.user);
+
     const event = await Event.create({
         admins: [req.user.id],
         users: users,
@@ -60,13 +49,13 @@ const setEvent = asyncHandler(async (req, res) => {
         date: req.body.date,
         location: req.body.location || '',
         image: req.body.image,
+        description: req.body.description,
     });
 
-    for (let index = 0; index < users.length; index++) {
-        await User.findByIdAndUpdate(users[index]._id, { $addToSet: { events: [event._id] } });
-    }
-
-    await User.findByIdAndUpdate(req.user.id, { $addToSet: { events: [event._id] } });
+    users.forEach(
+        async (user) =>
+            await User.findByIdAndUpdate(user._id || user.id, { $addToSet: { events: [event._id] } })
+    );
 
     res.status(200).json(event);
 });

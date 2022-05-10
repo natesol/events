@@ -4,11 +4,26 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { EventCard, ToDoGroup } from '../../components';
 import { Anchor, ScrollArea, Box } from '@mantine/core';
+import { getEvents } from '../../features';
 
 export const Home = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { user } = useSelector((state) => state.auth);
+    const { events, isLoading, isError, message } = useSelector((state) => state.events);
+
+    useEffect(() => {
+        if (isError) {
+            console.log(message);
+        }
+
+        if (!user) {
+            navigate('/login');
+        }
+
+        dispatch(getEvents());
+    }, [user, navigate, isError, message, dispatch]);
 
     return (
         <>
@@ -38,8 +53,8 @@ export const Home = () => {
                             gap: theme.spacing['2xl'],
                         })}
                     >
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                            <EventCard key={i} num={i} />
+                        {events.map((event) => (
+                            <EventCard key={event._id} event={event} />
                         ))}
                     </Box>
                 </ScrollArea>

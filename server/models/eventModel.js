@@ -22,11 +22,13 @@ const eventSchema = mongoose.Schema(
         location: {
             type: String,
         },
-        image: [
-            {
-                type: String,
-            },
-        ],
+        image: {
+            type: String,
+        },
+
+        description: {
+            type: String,
+        },
         chat: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Chat',
