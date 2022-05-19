@@ -2,10 +2,13 @@
 /* ---- Users Routes Controller ------------------------------------------------------------------- */
 
 const asyncHandler = require('express-async-handler');
+
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/userModel');
+const { error } = require('console');
 
 /**
  @desc    Register a new user.
@@ -62,8 +65,6 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password, remember } = req.body;
 
-    console.log(req.body);
-
     // Check for user email
     const user = await User.findOne({ email });
 
@@ -88,17 +89,6 @@ const loginUser = asyncHandler(async (req, res) => {
 */
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
-    const { password } = req.body;
-
-    if (req.body.connections) {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-            connections: req.body.connections,
-        });
-
-        console.log(req.body, req.params);
-
-        res.status(200).json(updatedUser);
-    }
 
     // Check for user
     if (!req.user) {
@@ -112,17 +102,33 @@ const updateUser = asyncHandler(async (req, res) => {
         throw new Error('User not authorized');
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    //
+    const updatedUserObj = {};
 
-    const updatedUser = await User.findByIdAndUpdate(
-        req.params.id,
-        { password: hashedPassword },
-        {
-            new: true,
-        }
-    );
+    // update password
+    if (req.body.password) {
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+        updatedUserObj.password = hashedPassword;
+    }
+
+    //
+    if (req.body.connections) {
+        updatedUserObj.connections = req.body.connections;
+    }
+
+    //
+    if (req?.file?.fieldname === 'avatar') {
+        updatedUserObj.avatar = req.file.path;
+
+        fs.unlink(user.avatar, (error) => error && console.log(error));
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, updatedUserObj, {
+        new: true,
+    });
 
     res.status(200).json(updatedUser);
 });

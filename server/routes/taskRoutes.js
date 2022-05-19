@@ -1,18 +1,15 @@
 /* ------------------------------------------------------------------------------------------------ */
-/* ---- Users Routes Initialization --------------------------------------------------------------- */
+/* ---- Tasks Routes Initialization -------------------------------------------------------------- */
 
 const express = require('express');
-const { uploadImage } = require('../controllers/imageController');
 
-const { registerUser, loginUser, getMe, updateUser } = require('../controllers/userController');
+const { getTasks, setTask, updateTask, deleteTask, getTask } = require('../controllers/taskController');
 const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.post('/', uploadImage.single('avatar'), registerUser);
-router.post('/login', loginUser);
-router.put('/:id', protect, uploadImage.single('avatar'), updateUser);
-router.get('/me', protect, getMe);
+router.route('/').get(protect, getTasks).post(protect, setTask);
+router.route('/:id').delete(protect, deleteTask).put(protect, updateTask).get(protect, getTask);
 
 module.exports = router;
 

@@ -70,6 +70,7 @@ const App = () => {
                             <Route path='/' element={<MainTemplate />}>
                                 <Route index element={<Home />} />
                                 <Route path='profile' element={<Profile />} />
+                                <Route path='profile/:id' element={<Profile />} />
                                 <Route path='settings' element={<Settings />} />
                                 <Route path='connections' element={<Connections />} />
                                 <Route path='notifications' element={<Notifications />} />

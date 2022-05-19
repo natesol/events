@@ -13,6 +13,16 @@ const User = require('../models/userModel');
 */
 const getEvents = asyncHandler(async (req, res) => {
     const events = await Event.find().where('_id').in(req.user.events).exec();
+
+    console.log(events);
+
+    for (let i = 0; i < events.length; i++) {
+        events[i].users = await User.find(null, '_id email firstName lastName avatar')
+            .where('_id')
+            .in(events[i].users)
+            .exec();
+    }
+
     res.status(200).json(events);
 });
 
@@ -23,6 +33,8 @@ const getEvents = asyncHandler(async (req, res) => {
 */
 const getEvent = asyncHandler(async (req, res) => {
     const event = await Event.findById(req.params.id);
+    event.users = await User.find().where('_id').in(event.users).exec();
+
     res.status(200).json(event);
 });
 
@@ -36,7 +48,7 @@ const setEvent = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error('Please add event name');
     }
-    console.log(req.file);
+
     const contacts = req.body.users.split(' ');
     const users = await User.find().where('email').in(contacts).exec();
     users.push(req.user);
