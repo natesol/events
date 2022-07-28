@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a password'],
         },
-        image: {
+        avatar: {
             type: String,
         },
         phone: {
@@ -45,6 +45,13 @@ const userSchema = mongoose.Schema(
                 ref: 'User',
             },
         ],
+        tasksList: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'TasksList',
+            },
+        ],
+
         preferences: {
             type: String,
         },
@@ -58,10 +65,7 @@ const userSchema = mongoose.Schema(
                 message: {
                     type: String,
                 },
-                assignment: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Assignment',
-                },
+
                 budget: {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'Budget',

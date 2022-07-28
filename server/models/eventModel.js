@@ -33,9 +33,9 @@ const eventSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Chat',
         },
-        assignments: {
+        tasks: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Assignments',
+            ref: 'TasksList',
         },
         budget: {
             type: mongoose.Schema.Types.ObjectId,

@@ -1,7 +1,8 @@
-import { useState, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
 
-import { Heart } from 'tabler-icons-react';
+// import { Heart } from 'tabler-icons-react';
 import {
     Card,
     Image,
@@ -9,7 +10,7 @@ import {
     Group,
     Badge,
     Button,
-    ActionIcon,
+    // ActionIcon,
     createStyles,
     useMantineTheme,
     Avatar,
@@ -42,14 +43,14 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-export const EventCard = ({ event, image, title, description, country, badges }) => {
+export const EventCard = ({ event }) => {
     const { classes } = useStyles();
     const theme = useMantineTheme();
 
     return (
         <Card withBorder radius='md' p='md' className={classes.card}>
             <Card.Section>
-                <Image src={image} alt={event.name} height={60} width={220} />
+                <Image src={event.image} alt={event.name} height={60} width={220} />
             </Card.Section>
 
             <Card.Section className={classes.section} mt='md'>
@@ -71,12 +72,13 @@ export const EventCard = ({ event, image, title, description, country, badges })
                     <Text size='sm'>{event.description}</Text>
                 </Spoiler>
                 <AvatarsGroup limit={2} mt='md' total={event.users.length}>
-                    <Avatar src='avatar.png' component='a' href='https://github.com/rtivital' />
-                    <Avatar src='avatar.png' />
+                    {event.users.map((user, i) => (
+                        <Avatar key={i} src={user.avatar} />
+                    ))}
                 </AvatarsGroup>
             </Card.Section>
 
-            <Button mt='md' radius='md'>
+            <Button component={Link} to={'events/' + event._id} mt='md' radius='md'>
                 Show details
             </Button>
         </Card>
