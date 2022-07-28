@@ -60,27 +60,30 @@ const setEvent = asyncHandler(async (req, res) => {
         location: req.body.location || '',
         image: req.file.path,
         description: req.body.description,
+        tasksList: req.body.tasksList,
     });
 
-    const tasksList = await TasksList.create({
-        event: event._id,
-    });
+    if (req.body.tasksList) {
+        const tasksList = await TasksList.create({
+            event: event._id,
+        });
 
-    await Event.findByIdAndUpdate(event._id, {
-        $addToSet: {
-            tasks: [tasksList._id],
-        },
-    });
+        await Event.findByIdAndUpdate(event._id, {
+            $addToSet: {
+                tasks: [tasksList._id],
+            },
+        });
 
-    users.forEach(
-        async (user) =>
-            await User.findByIdAndUpdate(user._id || user.id, {
-                $addToSet: {
-                    events: [event._id],
-                    tasksList: [tasksList._id],
-                },
-            })
-    );
+        users.forEach(
+            async (user) =>
+                await User.findByIdAndUpdate(user._id || user.id, {
+                    $addToSet: {
+                        events: [event._id],
+                        tasksList: [tasksList._id],
+                    },
+                })
+        );
+    }
 
     res.status(200).json(event);
 });

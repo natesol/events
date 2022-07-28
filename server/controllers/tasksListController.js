@@ -6,6 +6,7 @@ const asyncHandler = require('express-async-handler');
 const Event = require('../models/eventModel');
 const User = require('../models/userModel');
 const Tasks = require('../models/tasksListModel');
+const TasksList = require('../models/tasksListModel');
 
 /**
  @desc    Get user tasks.
@@ -32,7 +33,7 @@ const gettasks = asyncHandler(async (req, res) => {
  @route   GET -> /api/tasks/:id
  @access  Private
 */
-const gettask = asyncHandler(async (req, res) => {
+const getTasks = asyncHandler(async (req, res) => {
     const task = await task.findById(req.params.id);
     task.users = await User.find().where('_id').in(task.users).exec();
 
@@ -45,9 +46,32 @@ const gettask = asyncHandler(async (req, res) => {
  @access  Private
 */
 const setTasks = asyncHandler(async (req, res) => {
-    const contacts = req.body.users.split(' ');
-    const users = await User.find().where('email').in(contacts).exec();
-    users.push(req.user);
+    const event = req.body.event;
+    const users=await Event.findById(event).users;
+
+    const tasksList = await TasksList.create({
+        event: event,
+    });
+
+    await Event.findByIdAndUpdate(event, {
+        $addToSet: {
+            tasks: [tasksList._id],
+        },
+    });
+
+    users.forEach(
+        async (user) =>
+            await User.findByIdAndUpdate(user._id || user.id, {
+                $addToSet: {
+                    events: [event],
+                    tasksList: [tasksList._id],
+                },
+            })
+    );
+}
+
+
+
 
     // const task = await task.create({
     //     creator: req.user.id,
@@ -58,13 +82,7 @@ const setTasks = asyncHandler(async (req, res) => {
     //     status: req.file.path,
     // });
 
-    users.forEach(
-        async (user) =>
-            await User.findByIdAndUpdate(user._id || user.id, { $addToSet: { tasks: [task._id] } })
-    );
-
-    res.status(200).json(task);
-});
+    
 
 /**
  @desc    Update an task.
@@ -129,11 +147,7 @@ const deletetask = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-    getTasks,
-    getTask,
-    setTasks,
-    updateTask,
-    deleteTask,
+    getTasksList, setTasksList, updateTasksList, deleteTasksList, getTasksList,
 };
 
 /* ------------------------------------------------------------------------------------------------ */
