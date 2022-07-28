@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler');
 
 const Event = require('../models/eventModel');
 const User = require('../models/userModel');
+const TasksList = require('../models/tasksListModel');
 
 /**
  @desc    Get user events.
@@ -13,8 +14,6 @@ const User = require('../models/userModel');
 */
 const getEvents = asyncHandler(async (req, res) => {
     const events = await Event.find().where('_id').in(req.user.events).exec();
-
-    console.log(events);
 
     for (let i = 0; i < events.length; i++) {
         events[i].users = await User.find(null, '_id email firstName lastName avatar')
@@ -63,9 +62,24 @@ const setEvent = asyncHandler(async (req, res) => {
         description: req.body.description,
     });
 
+    const tasksList = await TasksList.create({
+        event: event._id,
+    });
+
+    await Event.findByIdAndUpdate(event._id, {
+        $addToSet: {
+            tasks: [tasksList._id],
+        },
+    });
+
     users.forEach(
         async (user) =>
-            await User.findByIdAndUpdate(user._id || user.id, { $addToSet: { events: [event._id] } })
+            await User.findByIdAndUpdate(user._id || user.id, {
+                $addToSet: {
+                    events: [event._id],
+                    tasksList: [tasksList._id],
+                },
+            })
     );
 
     res.status(200).json(event);

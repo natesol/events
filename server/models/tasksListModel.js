@@ -14,7 +14,7 @@ const taskSchema = mongoose.Schema(
 
         deadline: {
             type: Date,
-            required: [true, 'Please add an event date'],
+            required: [false, 'Please add an event date'],
         },
         status: {
             type: Boolean,
@@ -36,7 +36,7 @@ const taskSchema = mongoose.Schema(
     }
 );
 
-const tasksSchema = mongoose.Schema(
+const TasksListSchema = mongoose.Schema(
     {
         event: {
             type: mongoose.Schema.Types.ObjectId,
@@ -56,7 +56,7 @@ const tasksSchema = mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('Tasks', tasksSchema);
+module.exports = mongoose.model('TasksList', TasksListSchema);
 
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */

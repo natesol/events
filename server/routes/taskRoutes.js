@@ -3,7 +3,7 @@
 
 const express = require('express');
 
-const { getTasks, setTask, updateTask, deleteTask, getTask } = require('../controllers/taskController');
+const { getTasks, setTask, updateTask, deleteTask, getTask } = require('../controllers/tasksListController');
 const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();

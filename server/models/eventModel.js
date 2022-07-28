@@ -35,7 +35,7 @@ const eventSchema = mongoose.Schema(
         },
         tasks: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Tasks',
+            ref: 'TasksList',
         },
         budget: {
             type: mongoose.Schema.Types.ObjectId,

@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler');
 
 const Event = require('../models/eventModel');
 const User = require('../models/userModel');
-const Tasks = require('../models/tasksModel');
+const Tasks = require('../models/tasksListModel');
 
 /**
  @desc    Get user tasks.
